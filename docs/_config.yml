@@ -21,14 +21,14 @@
 title: Ed's Blog
 email: b93303015@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
- Node js for jobs, Golang for interest. R&D engineer for web backend.
+  Node js for jobs, Golang for interest. R&D engineer for web backend.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: EdLo81433928
 github_username:  Edwardz43
 
 # Build settings
-theme: jekyll-theme-leap-day
+theme: minima
 plugins:
   - jekyll-feed
 
