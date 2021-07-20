@@ -1,5 +1,6 @@
 ---
 layout: post
+tags: ["k8s","docker", "container"]
 title:  "Docker & k8s 開發部署共筆"
 date:   2021-07-19 23:25:49 +0800
 categories: jekyll update
@@ -10,34 +11,25 @@ categories: jekyll update
 [容器簡介：什麼是容器？(google)](https://cloud.google.com/containers/?hl=zh-TW)
 
 重點節錄
->容器提供一種邏輯封裝機制，能夠將應用程式從實際執行所在環境抽取出來。無論目標環境是私人資料中心、公用雲端還是開發人員的個人筆記型電腦，這種分離的方式都可以==輕鬆、一致地部署==容器型應用程式。容器化提供了一種俐落的==分工模式==，當==開發人員專注於應用程式邏輯與依附元件==時，==IT 營運團隊可將注意力集中到部署與管理==上，而不用擔心諸如特定軟體版本與應用程式特定設定之類的應用程式細節。
->容器不像虛擬機器會將==硬體堆疊虛擬化==，而是會在==作業系統層級進行虛擬化==，讓多個容器直接在 OS 核心之上執行。這表示==容器遠比虛擬機器輕量==，不但共用 OS 核心、啟動速度較快，而且使用的記憶體量也比啟動完整 OS 要少很多。
->容器讓開發人員能夠建立可以預測的環境，而且這個==環境是與其他應用程式隔離開的==。容器也可能包含應用程式需要的軟體依附元件，例如特定版本的程式設計語言執行階段與其他軟體程式庫。從開發人員的角度來看，無論最終應用程式將部署到何處，這==一切都能保證一致==。這一切全都代表生產力：開發人員與 IT 營運團隊可以==減少花費在偵錯與診斷環境差異上的時間，而將更多時間用在為使用者提供新功能==。而且開發人員現在可以在開發與測試環境中，做出同樣適用於實際工作環境的假設，因此錯誤的發生機率也會隨之降低。
->==容器幾乎能在任意位置執行，顯著降低了開發與部署的難度==：在 Linux、Windows 與 Mac 作業系統上；在虛擬機器或不含作業系統的機器上；在開發人員的機器或資料中心內部部署中；當然，還有公開雲端中。廣泛應用於容器的 Docker 映像檔格式更加強化了可攜性。每當您想要執行軟體時，就可以使用容器。
->元件化也可讓您以更快的速度及更可靠的方式開發；==程式碼集越小，維護起來越容易==，而且由於服務是分離的，要==針對輸出測試特定輸入會更簡單==。
->由於容器能夠抽離程式碼，因此您可以將個別服務當成黑箱來處理，進一步減少開發人員需要顧慮的空間。當開發人員處理需要彼此依賴的服務時，他們==可以針對特定服務輕鬆啟動容器，而不用浪費時間提前設定正確的環境及疑難排解==。
+>容器提供一種邏輯封裝機制，能夠將應用程式從實際執行所在環境抽取出來。無論目標環境是私人資料中心、公用雲端還是開發人員的個人筆記型電腦，這種分離的方式都可以輕鬆、一致地部署容器型應用程式。容器化提供了一種俐落的分工模式，當開發人員專注於應用程式邏輯與依附元件時，IT 營運團隊可將注意力集中到部署與管理上，而不用擔心諸如特定軟體版本與應用程式特定設定之類的應用程式細節。
+
+>容器不像虛擬機器會將硬體堆疊虛擬化，而是會在作業系統層級進行虛擬化，讓多個容器直接在 OS 核心之上執行。這表示容器遠比虛擬機器輕量，不但共用 OS 核心、啟動速度較快，而且使用的記憶體量也比啟動完整 OS 要少很多。
+
+>容器讓開發人員能夠建立可以預測的環境，而且這個環境是與其他應用程式隔離開的。容器也可能包含應用程式需要的軟體依附元件，例如特定版本的程式設計語言執行階段與其他軟體程式庫。從開發人員的角度來看，無論最終應用程式將部署到何處，這一切都能保證一致。這一切全都代表生產力：開發人員與 IT 營運團隊可以減少花費在偵錯與診斷環境差異上的時間，而將更多時間用在為使用者提供新功能。而且開發人員現在可以在開發與測試環境中，做出同樣適用於實際工作環境的假設，因此錯誤的發生機率也會隨之降低。
+
+>容器幾乎能在任意位置執行，顯著降低了開發與部署的難度：在 Linux、Windows 與 Mac 作業系統上；在虛擬機器或不含作業系統的機器上；在開發人員的機器或資料中心內部部署中；當然，還有公開雲端中。廣泛應用於容器的 Docker 映像檔格式更加強化了可攜性。每當您想要執行軟體時，就可以使用容器。
+
+>元件化也可讓您以更快的速度及更可靠的方式開發；程式碼集越小，維護起來越容易，而且由於服務是分離的，要針對輸出測試特定輸入會更簡單。
+
+>由於容器能夠抽離程式碼，因此您可以將個別服務當成黑箱來處理，進一步減少開發人員需要顧慮的空間。當開發人員處理需要彼此依賴的服務時，他們可以針對特定服務輕鬆啟動容器，而不用浪費時間提前設定正確的環境及疑難排解。
 
 ### 加入容器化的開發流程
 
-```flow
-st=>start: new freature
-e=>end: release
-op=>operation: commit source code
-op2=>operation: build image
-op3=>operation: deploy
-op4=>operation: bug fix
-cond=>condition: QA pass ?
+![workflow](https://i.imgur.com/U2aJjyb.png)
 
-st->op->op2->op3->cond
-cond(yes)->e
-cond(no)->op4->op
-```
-
-:::info
-:bulb: 這一連串流程，可以透過 pipeline 的方式做自動化流程，例如：
+>這一連串流程，可以透過 pipeline 的方式做自動化流程，例如：
 [Jenkins](https://www.jenkins.io/zh/doc/)
 [Google Cloud Build](https://medium.com/@blaze0207/google-cloud-build-%E6%95%99%E5%AD%B8-%E4%B8%80-ed7103d3fb62)
-:::
 
 另外，容器化在開發階段也是相當好用，例如：
 前端，後端， server 將各自的專案打包成 image 供彼此使用，所以整個專案可以在本機上跑測試，不需要透過開發站主機或連接到他人的主機
@@ -73,12 +65,9 @@ cond(no)->op4->op
 
 docker file 可說是建立映象檔的腳本，docker engine 會根據腳本建立對應的 image
 
-:::success
-
 * [Dockerfile 基本結構](https://philipzheng.gitbook.io/docker_practice/dockerfile/basic_structure)
 * [Best practices for writing Dockerfiles](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/) <- 最佳實踐，官方完整範例&解說
 * [Node.js 成員映像檔的 Dockerfile 範例(IBM)](https://www.ibm.com/docs/zh-tw/was-liberty/nd?topic=apis-example-dockerfile-nodejs-member-image)
-:::
 
 ---
 
@@ -116,9 +105,7 @@ docker build -t pomelo/block:latest .
 
 就會建立名為 `pomelo/block` 的映像檔 版本為 `latest`
 
-:::info
-:mag_right: 若有多個不同名稱的 docker file，可以下 -f <Dockerfile路徑>指定，不然預設是指向 `Dockerfile`
-:::
+>若有多個不同名稱的 docker file，可以下 -f <Dockerfile路徑>指定，不然預設是指向 `Dockerfile`
 
 ---
 
@@ -260,18 +247,18 @@ services:
 比較常用的指令
 
 * [up](https://docs.docker.com/compose/reference/up/) ： Builds, (re)creates, starts, and attaches to containers for a service
-* [stop](https://docs.docker.com/compose/reference/stop/) ： Stops running containers ==without removing== them
-* [down](https://docs.docker.com/compose/reference/down/)：Stops containers and ==removes== containers, networks, volumes, and images created by `up`
+* [stop](https://docs.docker.com/compose/reference/stop/) ： Stops running containers without removing them
+* [down](https://docs.docker.com/compose/reference/down/)：Stops containers and removes containers, networks, volumes, and images created by `up`
 
-:::info
-:bulb:[更多指令](https://docs.docker.com/compose/reference/)
-:::
+>[更多指令](https://docs.docker.com/compose/reference/)
 
 參考文件:
 
 * [使用 Docker Compose(MicroSoft)](https://docs.microsoft.com/zh-tw/visualstudio/docker/tutorials/use-docker-compose)
 * [使用 Docker-Compose 啟動多個 Docker Container](https://ithelp.ithome.com.tw/articles/10194183)
 * [docker-compose cheatsheet](https://devhints.io/docker-compose)
+
+---
 
 ### k8s
 
@@ -374,5 +361,3 @@ pod "web" created
 ### 更多補充
 
 * [About Service & Ingress](https://hackmd.io/@rd7-edlo/rynjra6sd)
-
-#### tags: `k8s` `docker` `container`

@@ -29,6 +29,7 @@ github_username:  Edwardz43
 
 # Build settings
 theme: minima
+# theme: just-the-docs
 plugins:
   - jekyll-feed
 
